@@ -10,21 +10,21 @@ import ErrorPage from "./pages/error-page";
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: "/ChemicalScience/",
     element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <RootIndex /> },
       {
-        path: "/about",
+        path: "/ChemicalScience/about",
         element: <About />,
       },
       {
-        path: "/users",
+        path: "/ChemicalScience/users",
         element: <UserPage />,
       },
       {
-        path: "/create-user",
+        path: "/ChemicalScience/create-user",
         element: <CreateUserPage />,
       },
     ],
