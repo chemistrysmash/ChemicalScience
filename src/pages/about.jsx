@@ -3,12 +3,12 @@ import service from "./../services";
 import QrScanner from 'react-qr-scanner';
 
 const About = () => {
-  const [data, setData] = useState('No result');
+  const [data, setData] = useState({ text: 'No result', format: '' });
   const [error, setError] = useState(null);
 
   const handleScan = (result) => {
     if (result) {
-      setData(result.text);  // Assuming you want to display the 'text' property
+      setData({ text: result.text, format: result.format });
     }
   };
 
@@ -22,6 +22,10 @@ const About = () => {
     width: 320,
   };
 
+  const videoConstraints = {
+    facingMode: 'environment'  // Use back camera
+  };
+
   return (
     <div>
       <h1>QR Code Reader</h1>
@@ -30,8 +34,10 @@ const About = () => {
         style={previewStyle}
         onError={handleError}
         onScan={handleScan}
+        constraints={{facingMode: 'environment'}}
       />
-      <p>Scan Result: {data}</p>
+      <p>Scan Result: {data.text}</p>
+      <p>Format: {data.format}</p>
       {error && <p>Error: {error}</p>}
     </div>
   );
