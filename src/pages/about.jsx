@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import service from "./../services";
-import { QrReader } from 'react-qr-reader';
+import QrScanner from 'react-qr-scanner';
 
 const About = () => {
   const [data, setData] = useState('No result');
@@ -8,7 +8,7 @@ const About = () => {
 
   const handleScan = (result) => {
     if (result) {
-      setData(result.text);
+      setData(result.text);  // Assuming you want to display the 'text' property
     }
   };
 
@@ -17,24 +17,20 @@ const About = () => {
     setError(error.message);
   };
 
+  const previewStyle = {
+    height: 240,
+    width: 320,
+  };
+
   return (
     <div>
       <h1>QR Code Reader</h1>
-      <div style={{width:'20%'}}>
-          <QrReader
-        onResult={(result, error) => {
-          if (result) {
-            handleScan(result);
-          }
-
-          if (error) {
-            handleError(error);
-          }
-        }}
-        //constraints={{ facingMode: 'environment' }}
+      <QrScanner
+        delay={300}
+        style={previewStyle}
+        onError={handleError}
+        onScan={handleScan}
       />
-      </div>
-    
       <p>Scan Result: {data}</p>
       {error && <p>Error: {error}</p>}
     </div>
