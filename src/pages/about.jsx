@@ -1,38 +1,42 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import service from "./../services";
+import { QrReader } from 'react-qr-reader';
 
 const About = () => {
-  const videoRef = useRef(null);
+  const [data, setData] = useState('No result');
+  const [error, setError] = useState(null);
 
+  const handleScan = (result) => {
+    if (result) {
+      setData(result.text);
+    }
+  };
 
-  useEffect(() => {
-    let stream;
-
-    const startCamera = async () => {
-      try {
-        stream = await service.camera.openBackCamera();
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (error) {
-        console.error('Failed to start camera:', error);
-      }
-    };
-
-    startCamera();
-
-    return () => {
-      if (stream) {
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-      }
-    };
-  }, []);
+  const handleError = (error) => {
+    console.error(error);
+    setError(error.message);
+  };
 
   return (
     <div>
-      <h2>About Page</h2>
-      <video ref={videoRef} autoPlay playsInline style={{ width: '50%', height: 'auto' }} />
+      <h1>QR Code Reader</h1>
+      <div style={{width:'20%'}}>
+          <QrReader
+        onResult={(result, error) => {
+          if (result) {
+            handleScan(result);
+          }
+
+          if (error) {
+            handleError(error);
+          }
+        }}
+        //constraints={{ facingMode: 'environment' }}
+      />
+      </div>
+    
+      <p>Scan Result: {data}</p>
+      {error && <p>Error: {error}</p>}
     </div>
   );
 };

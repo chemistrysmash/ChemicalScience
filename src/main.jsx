@@ -16,15 +16,15 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <RootIndex /> },
       {
-        path: "/ChemicalScience/about",
+        path: "/ChemicalScience/compound-reaction",
         element: <About />,
       },
       {
-        path: "/ChemicalScience/users",
+        path: "/ChemicalScience/molecule-composition",
         element: <UserPage />,
       },
       {
-        path: "/ChemicalScience/create-user",
+        path: "/ChemicalScience/molecule-sorting-challenge",
         element: <CreateUserPage />,
       },
       {

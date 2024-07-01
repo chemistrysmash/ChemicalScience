@@ -5,9 +5,9 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 const navigation = [
   { name: "Home", href: "./ChemicalScience" },
-  { name: "About", href: "./ChemicalScience/about" },
-  { name: "Users", href: "./ChemicalScience/users" },
-  { name: "Create User", href: "./ChemicalScience/create-user" },
+  { name: "compound reaction",href:"./ChemicalScience/compound-reaction"},
+  { name: "molecule composition", href: "./ChemicalScience/molecule-composition" },
+  { name: "molecule sorting challenge", href: "./ChemicalScience/molecule-sorting-challenge" },
 ];
 
 function classNames(...classes) {
@@ -64,6 +64,30 @@ export default function RootLayout() {
                 </div>
               </div>
             </div>
+            <Disclosure.Panel className="sm:hidden">
+              {({ close }) => (
+                <div className="space-y-1 px-2 pt-2 pb-3">
+                  {navigation.map((item) => (
+                    <NavLink
+                      key={item.name}
+                      as={NavLink}
+                      to={item.href}
+                      className={({ isActive }) =>
+                        classNames(
+                          isActive
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                          "block rounded-md px-3 py-2 text-base font-medium"
+                        )
+                      }
+                      onClick={close}
+                    >
+                      {item.name}
+                    </NavLink>
+                  ))}
+                </div>
+              )}
+            </Disclosure.Panel>
           </>
         )}
       </Disclosure>
@@ -81,7 +105,7 @@ export function RootIndex() {
         <h1 className="text-4xl block">Welcome</h1>
       </div>
       <div className="flex justify-center">
-          <img src="/vite.svg" className="w-52 logo" />
+          <img src="./vite.svg" className="w-52 logo" />
       </div>
     </div>
   );
