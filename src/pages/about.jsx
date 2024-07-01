@@ -34,7 +34,7 @@ const About = () => {
         style={previewStyle}
         onError={handleError}
         onScan={handleScan}
-        constraints={{facingMode: 'environment'}}
+        preferredCamera={"environment"}
       />
       <p>Scan Result: {data.text}</p>
       <p>Format: {data.format}</p>
