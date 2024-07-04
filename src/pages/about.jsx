@@ -1,44 +1,24 @@
 import React, { useState } from 'react';
 import service from "./../services";
 import QrScanner from 'react-qr-scanner';
+import QrCodeScanner from '../components/QrCodeScanner';
 
 const About = () => {
-  const [data, setData] = useState({ text: 'No result', format: '' });
-  const [error, setError] = useState(null);
+  const [scanResult, setScanResult] = useState('');
 
-  const handleScan = (result) => {
-    if (result) {
-      setData({ text: result.text, format: result.format });
-    }
+  const handleScanSuccess = (decodedText) => {
+    setScanResult(decodedText);
   };
 
-  const handleError = (error) => {
-    console.error(error);
-    setError(error.message);
-  };
-
-  const previewStyle = {
-    height: 240,
-    width: 320,
-  };
-
-  const videoConstraints = {
-    facingMode: 'environment'  // Use back camera
+  const handleScanFailure = (errorMessage) => {
+    console.warn(`QR Code scan failed: ${errorMessage}`);
   };
 
   return (
     <div>
-      <h1>QR Code Reader</h1>
-      <QrScanner
-        delay={300}
-        style={previewStyle}
-        onError={handleError}
-        onScan={handleScan}
-        preferredCamera={"environment"}
-      />
-      <p>Scan Result: {data.text}</p>
-      <p>Format: {data.format}</p>
-      {error && <p>Error: {error}</p>}
+      <h1>QR Code Scanner</h1>
+      <QrCodeScanner onScanSuccess={handleScanSuccess} onScanFailure={handleScanFailure} />
+      <p>Scan Result: {scanResult}</p>
     </div>
   );
 };
