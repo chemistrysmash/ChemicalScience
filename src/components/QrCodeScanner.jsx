@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import QrReader from 'modern-react-qr-reader';
+import { QrReader } from 'react-qr-reader';
 
 const QrCodeScanner = ({ onScanSuccess, onScanFailure }) => {
   const [scanResult, setScanResult] = useState('');
@@ -35,7 +35,7 @@ const QrCodeScanner = ({ onScanSuccess, onScanFailure }) => {
           style={{ width: '100%' }}
           onError={handleError}
           onScan={handleScan}
-          facingMode="environment" // Use "environment" for rear-facing camera
+          constraints={{facingMode:"environment"}} 
         />
       )}
     </div>
