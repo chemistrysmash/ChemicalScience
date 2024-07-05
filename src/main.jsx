@@ -7,6 +7,7 @@ import "./index.css";
 import UserPage from "./pages/users";
 import CreateUserPage from "./pages/create-user";
 import ErrorPage from "./pages/error-page";
+import ReactionPage from "./pages/compound-reaction"
 
 const router = createBrowserRouter([
   {
@@ -17,11 +18,11 @@ const router = createBrowserRouter([
       { index: true, element: <RootIndex /> },
       {
         path: "/ChemicalScience/compound-reaction",
-        element: <About />,
+        element:<ReactionPage />// <About />,
       },
       {
         path: "/ChemicalScience/molecule-composition",
-        element: <UserPage />,
+        element: <About />,
       },
       {
         path: "/ChemicalScience/molecule-sorting-challenge",

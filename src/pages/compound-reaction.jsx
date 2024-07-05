@@ -1,39 +1,30 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import service from "./../services";
+import reaction_data from "../dataset/compound-reaction.json";
 
 const Compound_reaction = () => {
-  const videoRef = useRef(null);
-
-
-  useEffect(() => {
-    let stream;
-
-    const startCamera = async () => {
-      try {
-        stream = await service.camera.openBackCamera();
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-      } catch (error) {
-        console.error('Failed to start camera:', error);
-      }
-    };
-
-    startCamera();
-
-    return () => {
-      if (stream) {
-        const tracks = stream.getTracks();
-        tracks.forEach(track => track.stop());
-      }
-    };
-  }, []);
+  const [ reaction, setreaction]=useState('');
+  useEffect(()=>{
+    try {
+      setreaction(reaction_data["CH3COOH_C2H5OH"].reaction);
+      
+    } catch (error) {
+      setreaction('');
+    }
+    
+  },[])
+  
 
   return (
-    <div>
+    <div style={{ height: '100vh' }}>
       <h2>Compound_reaction</h2>
-      <video ref={videoRef} autoPlay playsInline style={{ width: '50%', height: 'auto' }} />
-      
+      <div style={{ width: '100%', height: '30%', backgroundColor: 'lightblue', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      </div>
+      <div style={{ width: '100%', height: '30%', backgroundColor: 'lightyellow', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      {
+       reaction!==''?<p style={{ fontSize: '300%' }}>{reaction}</p>:'no reaction showed'
+      }
+      </div>
     </div>
   );
 };

@@ -1,39 +1,45 @@
-// src/components/QrCodeScanner.js
-import { Html5Qrcode, Html5QrcodeScanner } from 'html5-qrcode';
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import QrReader from 'modern-react-qr-reader';
 
 const QrCodeScanner = ({ onScanSuccess, onScanFailure }) => {
-    const [ scanResult, setScanResult]=useState(null);
-    useEffect(()=>{
-        const scanner =new Html5QrcodeScanner('reader',{
-            qrbox: {
-                width: 250,
-                height: 250,
-            },
-            fps: 5,
-        });
-    
-        scanner.render(success, error);
-        function success(reasult){
-            scanner.clear();
-            setScanResult(result);
-        }
-        function error(err){
-            console.warn(err);
-        }
-    },[]);
-    
-return(
-    <div>
-        <h1>QR Code Scanning in React</h1>
-        {scanResult
-        ?<p>Success:{scanResult}</p>
-        : <div id='reader'></div>
-        }
-        
-    </div>
-)
+  const [scanResult, setScanResult] = useState('');
 
+  const handleScan = (data) => {
+    if (data) {
+      setScanResult(data);
+      if (onScanSuccess) {
+        onScanSuccess(data);
+      }
+    } else {
+      if (onScanFailure) {
+        onScanFailure();
+      }
+    }
+  };
+
+  const handleError = (err) => {
+    console.error(err);
+    if (onScanFailure) {
+      onScanFailure();
+    }
+  };
+
+  return (
+    <div>
+      <h1>QR Code Scanning in React</h1>
+      {scanResult ? (
+        <p>Success: {scanResult}</p>
+      ) : (
+        <QrReader
+          delay={300}
+          style={{ width: '100%' }}
+          onError={handleError}
+          onScan={handleScan}
+          facingMode="environment" // Use "environment" for rear-facing camera
+        />
+      )}
+    </div>
+  );
 };
 
 export default QrCodeScanner;

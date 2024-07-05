@@ -1,5 +1,8 @@
 {
-    "name": "John Doe",
-    "age": 30,
-    "city": "New York"
+  "CH3COOH_C2H5OH": {
+    "reaction": "**酯化反應**: 乙酸 + 乙醇 → 乙酸乙酯（果香）"
+  },
+  "CH3COOH_C4H10O": {
+    "reaction": " **酯化反應**: 乙酸 + 丁醇 → 乙酸丁酯（香蕉香）"
   }
+}
