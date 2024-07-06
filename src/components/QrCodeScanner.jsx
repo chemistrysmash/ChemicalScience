@@ -4,12 +4,9 @@ import { QrReader } from 'react-qr-reader';
 const QrCodeScanner = ({ onScanSuccess, onScanFailure }) => {
   const [scanResult, setScanResult] = useState('');
 
-  const handleScan = (data) => {
+  const handleScan = (data,error) => {
     if (data) {
-      setScanResult(data);
-      if (onScanSuccess) {
-        onScanSuccess(data);
-      }
+      console.log('test')
     } else {
       if (onScanFailure) {
         onScanFailure();
@@ -33,8 +30,7 @@ const QrCodeScanner = ({ onScanSuccess, onScanFailure }) => {
         <QrReader
           delay={300}
           style={{ width: '100%' }}
-          onError={handleError}
-          onScan={handleScan}
+          onResult= {handleScan}
           constraints={{facingMode:"environment"}} 
         />
       )}

@@ -19,7 +19,6 @@ const About = () => {
       <h1>QR Code Scanner</h1>
       <QrCodeScanner
         delay={100}
-        onError={handleScanFailure}
         onScanSuccess={handleScanSuccess}
       />
       <p>Scan Result: {scanResult}</p>

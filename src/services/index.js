@@ -13,11 +13,16 @@ const services = {
     }
   },
 
-  getCompund_reaction({ name }){
+  getCompund_reaction(reactantA,reactantB){
     try {
-      return reaction[name]
+      console.log(`${reactantA}_${reactantB}`);
+      return reaction[`${reactantA}_${reactantB}`].reaction;
     } catch (error) {
-      return null;
+      try{
+        return reaction[`${reactantB}_${reactantA}`].reaction;
+      }catch(error){
+        return('cannot find the data');
+      }
     }
   },
 

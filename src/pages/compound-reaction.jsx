@@ -1,32 +1,63 @@
 import React, { useState, useEffect } from 'react';
-import service from "./../services";
-import reaction_data from "../dataset/compound-reaction.json";
+import { QrReader } from 'react-qr-reader';
+import service from '../services';
 
-const Compound_reaction = () => {
-  const [ reaction, setreaction]=useState('');
-  useEffect(()=>{
-    try {
-      setreaction(reaction_data["CH3COOH_C2H5OH"].reaction);
-      
-    } catch (error) {
-      setreaction('');
-    }
-    
-  },[])
-  
 
-  return (
-    <div style={{ height: '100vh' }}>
-      <h2>Compound_reaction</h2>
-      <div style={{ width: '100%', height: '30%', backgroundColor: 'lightblue', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      </div>
-      <div style={{ width: '100%', height: '30%', backgroundColor: 'lightyellow', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-      {
-       reaction!==''?<p style={{ fontSize: '300%' }}>{reaction}</p>:'no reaction showed'
+
+const CompoundReaction = () => {
+  let reactants=['',''];
+  const [reactantA,setReactantA]=useState('');
+  const [reactantB,setReactantB]=useState('');
+  const [reaction, setReaction] = useState('');
+
+  const handleResult = (result, error) => {
+   
+    if (result) {
+      console.log('result: '+result.text);
+      if (reactants[0]==='') {
+        reactants[0]=result.text;
+        setReactantA( reactants[0]);
+        console.log('set a')
+      } else if (reactants[1]==='' && result.text !== reactants[0]) {
+        reactants[1]=result.text;
+        console.log('set b');
+        setReactantB( reactants[1]);
+        setReaction(service.getCompund_reaction(reactants[0],reactants[1]));
+        console.log(service.getCompund_reaction(reactants[0],reactants[1]));
       }
+    }
+  };
+  const handleClear=()=>{
+    setReactantA('');
+    setReactantB('');
+    setReaction('');
+    console.log(reactantA);
+    reactants=['',''];
+    console.log('clear');
+  }
+  return (
+    <div>
+      <h2>Compound Reaction</h2>
+      <button onClick={handleClear} style={{ fontSize: '20px', padding: '10px', margin: '20px' }}>Clear All</button>
+      <QrReader
+        delay={500}
+        videoStyle={{ width: '100%', height: '100%', backgroundColor: 'lightblue', justifyContent: 'center' }}
+        onResult={handleResult}
+        constraints={{ facingMode: "environment" }}
+      />
+     
+      <div style={{ width: '100%', height: '30%', backgroundColor: 'pink', justifyContent: 'center', alignItems: 'center' }}>
+        {
+         <p style={{ fontSize: '20px' }}>reactantA:{reactantA} <br /> reactantB: {reactantB}</p>
+        }
+        {
+          reaction !== '' ? <p style={{ fontSize: '20px' }}>{reaction}</p> : <p>No reaction showed</p>
+        }
+
+        
       </div>
     </div>
   );
 };
 
-export default Compound_reaction;
+export default CompoundReaction;
