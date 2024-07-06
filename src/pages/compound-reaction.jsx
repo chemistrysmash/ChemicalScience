@@ -1,46 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import { QrReader } from 'react-qr-reader';
 import service from '../services';
-
+import { Button } from '@headlessui/react'
 
 
 const CompoundReaction = () => {
-  let reactants=['',''];
   const [reactantA,setReactantA]=useState('');
   const [reactantB,setReactantB]=useState('');
+  const [data,setData]=useState('');
   const [reaction, setReaction] = useState('');
 
-  const handleResult = (result, error) => {
-   
-    if (result) {
-      console.log('result: '+result.text);
-      if (reactants[0]==='') {
-        reactants[0]=result.text;
-        setReactantA( reactants[0]);
-        console.log('set a')
-      } else if (reactants[1]==='' && result.text !== reactants[0]) {
-        reactants[1]=result.text;
-        console.log('set b');
-        setReactantB( reactants[1]);
-        setReaction(service.getCompund_reaction(reactants[0],reactants[1]));
-        console.log(service.getCompund_reaction(reactants[0],reactants[1]));
-      }
-    }
-  };
   const handleClear=()=>{
     setReactantA('');
     setReactantB('');
     setReaction('');
-    console.log(reactantA);
-    reactants=['',''];
+    setData('');
     console.log('clear');
   }
+  const handleResult = (result, error) => {
+
+    if (result) {
+      const a=result.text
+      setData(a);
+      console.log(result.text)
+      //Math.floor(Math.random() * 100) + 1;
+      
+    }
+    if(error){
+      //console.log(error);
+    }
+  };
+
+  useEffect(()=>{
+   console.log('data:'+data);
+
+   if(reactantA==='')setReactantA(data);
+   else if(reactantB==='' && reactantA!=='')setReactantB(data);
+  },[data])
+
+  useEffect(()=>{
+    console.log('reactantA:'+reactantA);
+   },[reactantA])
+
+   useEffect(()=>{
+    console.log('reactantB:'+reactantB);
+    if(reactantB!=='')setReaction(service.getCompund_reaction(reactantA,reactantB));
+   },[reactantB])
+   
   return (
-    <div>
+    <div style={{height: '100vh'}}>
       <h2>Compound Reaction</h2>
-      <button onClick={handleClear} style={{ fontSize: '20px', padding: '10px', margin: '20px' }}>Clear All</button>
+     
       <QrReader
         delay={500}
+        containerStyle={{width: '100%', height: '40%', border: '2px solid red', padding: '0px', backgroundColor: 'lightyellow' }}
+        videoContainerStyle={{width: '100%', height: '100%', border: '2px solid blue', padding: '5px' , backgroundColor: 'lightyellow' }}
         videoStyle={{ width: '100%', height: '100%', backgroundColor: 'lightblue', justifyContent: 'center' }}
         onResult={handleResult}
         constraints={{ facingMode: "environment" }}
@@ -53,8 +67,9 @@ const CompoundReaction = () => {
         {
           reaction !== '' ? <p style={{ fontSize: '20px' }}>{reaction}</p> : <p>No reaction showed</p>
         }
-
-        
+      <Button  onClick={handleClear} className="rounded bg-sky-600 py-2 px-4 text-sm text-white data-[hover]:bg-sky-500 data-[hover]:data-[active]:bg-sky-700">
+      Clear All
+      </Button>
       </div>
     </div>
   );
