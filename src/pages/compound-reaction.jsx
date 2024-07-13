@@ -44,7 +44,7 @@ const CompoundReaction = () => {
 
    useEffect(()=>{
     console.log('reactantB:'+reactantB);
-    if(reactantB!=='')setReaction(service.getCompund_reaction(reactantA,reactantB));
+    if(reactantB!=='')setReaction(service.dataset.getCompund_reaction(reactantA,reactantB));
    },[reactantB])
    
   return (

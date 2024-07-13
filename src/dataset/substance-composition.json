@@ -1,5 +1,8 @@
 {
-    "name": "John Doe",
-    "age": 30,
-    "city": "New York"
+  "Lavender_France": {
+    "name":"薰衣草(法國)",
+    "compositions": ["芳香醇(Linalool)", "乙酸沉香酷(Linalylacetate)",
+                  "乙酸薰衣草酷(Lavandulyl acetate)","B-石竹烯(B-caryophyllene)",
+                  "松油烯-4-醇(Terpinen-4-o1)","冰片(Borneol)"]
   }
+}
