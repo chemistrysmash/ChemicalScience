@@ -1,14 +1,14 @@
 {
-  "Lavender_France": {
-    "name":"薰衣草(法國)",
-    "compositions": ["芳香醇(Linalool)", "乙酸沉香酷(Linalylacetate)",
-                  "乙酸薰衣草酷(Lavandulyl acetate)","B-石竹烯(B-caryophyllene)",
-                  "松油烯-4-醇(Terpinen-4-o1)","冰片(Borneol)"]
+  "C10H16": {
+    "name": "檸檬烯",
+    "moleculeWeight": "136.23"
   },
-  "abc": {
-    "name":"薰衣草(法國)",
-    "compositions": ["芳香醇(Linalool)", "乙酸沉香酷(Linalylacetate)",
-                  "乙酸薰衣草酷(Lavandulyl acetate)","B-石竹烯(B-caryophyllene)",
-                  "松油烯-4-醇(Terpinen-4-o1)","冰片(Borneol)"]
+  "C10H12O2": {
+    "name": "乙酸苯乙酯",
+    "moleculeWeight": "150.17"
+  },
+  "C8H8O3": {
+    "name": "香草醛",
+    "moleculeWeight": "152.15"
   }
 }

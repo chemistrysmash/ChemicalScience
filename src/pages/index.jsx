@@ -8,6 +8,8 @@ const navigation = [
   { name: "compound reaction",href:"./ChemicalScience/compound-reaction"},
   { name: "molecule composition", href: "./ChemicalScience/molecule-composition" },
   { name: "molecule sorting challenge", href: "./ChemicalScience/molecule-sorting-challenge" },
+  { name: "Mass Analyzer", href: "./ChemicalScience/mass-analyzer" },
+
 ];
 
 function classNames(...classes) {

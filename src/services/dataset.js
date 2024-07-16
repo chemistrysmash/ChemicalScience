@@ -3,25 +3,23 @@ import reaction from "../dataset/compound-reaction.json"
 import substance from "../dataset/substance-composition.json"
 
 export const dataset = {
-    getMolecule({ name }) {
+    getMolecule(name) {
         try {
-          return molecule[name]
-        } catch (error) {
-          return null;
-        }
+          //console.log('mol: '+name)
+          if( molecule[name]===undefined)return 'data not found';
+        return molecule[name]
+      } catch (error) {
+          return('error getMolecule',error);
+      }
       },
     
       getCompund_reaction(reactantA,reactantB){
         try {
-          console.log(`${reactantA}_${reactantB}`);
-          return reaction[`${reactantA}_${reactantB}`].reaction;
+          if (reaction[`${reactantA}_${reactantB}`]!==undefined)return reaction[`${reactantA}_${reactantB}`];
+          else if (reaction[`${reactantB}_${reactantA}`]!==undefined)return reaction[`${reactantB}_${reactantA}`];
+          else return('data not found');
         } catch (error) {
-          try{
-            return reaction[`${reactantB}_${reactantA}`].reaction;
-          }catch(error){
-            console.log('error');
-            return('data not found');
-          }
+          return('error getCompund_reaction',error);
         }
       },
     

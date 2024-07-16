@@ -9,6 +9,7 @@ const CompoundReaction = () => {
   const [reactantB,setReactantB]=useState('');
   const [data,setData]=useState('');
   const [reaction, setReaction] = useState('');
+  const [productUrl,setproductUrl]=useState('');
 
   const handleClear=()=>{
     setReactantA('');
@@ -44,7 +45,11 @@ const CompoundReaction = () => {
 
    useEffect(()=>{
     console.log('reactantB:'+reactantB);
-    if(reactantB!=='')setReaction(service.dataset.getCompund_reaction(reactantA,reactantB));
+    if(reactantB!==''){
+      const a=service.dataset.getCompund_reaction(reactantA,reactantB)
+      setReaction(a.reaction);
+      setproductUrl(a.url);
+    }
    },[reactantB])
    
   return (
@@ -65,7 +70,11 @@ const CompoundReaction = () => {
          <p style={{ fontSize: '20px' }}>reactantA:{reactantA} <br /> reactantB: {reactantB}</p>
         }
         {
-          reaction !== '' ? <p style={{ fontSize: '20px' }}>{reaction}</p> : <p>No reaction showed</p>
+          reaction !== '' ? 
+          <div>
+          <p style={{ fontSize: '20px' }}>{reaction}</p>
+          <img src={productUrl} alt="Example Image" style={{ width: '150px', height: 'auto' }} />
+          </div>: <p>No reaction showed</p>
         }
       <Button  onClick={handleClear} className="rounded bg-sky-600 py-2 px-4 text-sm text-white data-[hover]:bg-sky-500 data-[hover]:data-[active]:bg-sky-700">
       Clear All

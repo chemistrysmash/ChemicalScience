@@ -2,14 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import RootLayout, { RootIndex } from "./pages";
-import About from "./pages/about";
 import "./index.css";
-import UserPage from "./pages/users";
 import CreateUserPage from "./pages/create-user";
 import ErrorPage from "./pages/error-page";
 import ReactionPage from "./pages/compound-reaction";
 import CompositionPage from "./pages/molecule-composition";
-
+import SortingChallengePage from './pages/molecule-sorting-challenge'
+import MassAnalyzerPage from './pages/mass-analyzer'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -27,7 +26,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/ChemicalScience/molecule-sorting-challenge",
-        element: <CreateUserPage />,
+        element: <SortingChallengePage />,
+      },
+      {
+        path: "/ChemicalScience/mass-analyzer",
+        element: <MassAnalyzerPage />,
       },
       {
         path: "/ChemicalScience",
